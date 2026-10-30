@@ -65,7 +65,7 @@ class _ExpenseDialogState extends State<ExpenseDialog> {
               textInputAction: TextInputAction.next,
               decoration: const InputDecoration(
                 labelText: "Item",
-                hintText: 'e.g Launch - Your Name'
+                hintText: 'e.g Lunch - Your Name'
               ),
               validator: (value) => (value == null || value.trim().isEmpty) ? 'Enter an item' : null,
             ),

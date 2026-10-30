@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../database/database_helpert.dart';
 import '../../model/expenses.dart';
@@ -6,16 +5,17 @@ import '../organism/app_barr.dart';
 import '../organism/expenses_list.dart';
 import '../organism/expense_dialog.dart';
 import '../organism/delete_dialog.dart';
+import '../templates/expense_tracker_template.dart';
 
 class Homepage extends StatefulWidget {
+  final bool isDarkMode;
+  final ValueChanged<bool> onThemeChanged;
+
   const Homepage({
     super.key,
     required this.isDarkMode,
     required this.onThemeChanged,
   });
-
-  final bool isDarkMode;
-  final ValueChanged<bool> onThemeChanged;
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -86,24 +86,19 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HomeAppBar(
+
+    return ExpenseTrackerTemplate(
+      appbar: HomeAppBar(
         text: "Expenses App", 
         isDarkMode: widget.isDarkMode, 
         onThemeChanged: widget.onThemeChanged
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ExpensesList(
-              expensesList: _expenses, 
-              isloading: _isloading, 
-              onEdit: _editExpenses, 
-              onDelete: _deleteExpenses,
-            )
-          ),
-        ],
-      ),
+      ), 
+      expensesList: ExpensesList(
+        expensesList: _expenses, 
+        isloading: _isloading, 
+        onEdit: _editExpenses, 
+        onDelete: _deleteExpenses,
+      ), 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _addExpenses,
         icon: const Icon(Icons.add),
