@@ -6,6 +6,7 @@ import '../organism/expenses_list.dart';
 import '../organism/expense_dialog.dart';
 import '../organism/delete_dialog.dart';
 import '../templates/expense_tracker_template.dart';
+import '../organism/counter.dart';
 
 class Homepage extends StatefulWidget {
   final bool isDarkMode;
@@ -84,6 +85,22 @@ class _HomepageState extends State<Homepage> {
     _loadExpenses();
   }  
 
+  // this part of code is for experiment 2
+  int count = 0;
+
+  void onAdd(){
+    setState(() {
+      count++;
+    });
+  }
+
+  void onMinus(){
+    
+    setState(() {
+      count--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -105,6 +122,11 @@ class _HomepageState extends State<Homepage> {
         onPressed: _addExpenses,
         icon: const Icon(Icons.add),
         label: const Text("Add expense"),
+      ),
+      counter: Counter(
+        onAdd: onAdd, 
+        onMinus: onMinus, 
+        count: count
       ),
     );
   }

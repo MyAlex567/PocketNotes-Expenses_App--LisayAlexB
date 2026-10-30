@@ -5,12 +5,14 @@ class ExpenseTrackerTemplate extends StatelessWidget {
   final PreferredSizeWidget appbar;
   final Widget expensesList;
   final Widget floatingActionButton;
+  final Widget counter;
 
   const ExpenseTrackerTemplate({
     super.key,
     required this.appbar,
     required this.expensesList,
-    required this.floatingActionButton 
+    required this.floatingActionButton,
+    required this.counter,
   });
 
   @override
@@ -19,6 +21,7 @@ class ExpenseTrackerTemplate extends StatelessWidget {
       appBar: appbar,
       body: Column(
         children: [
+          counter,
           Expanded(
             child: expensesList
           ),
