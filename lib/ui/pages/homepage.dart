@@ -87,6 +87,8 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
 
+    _db.printAllRows();
+
     return ExpenseTrackerTemplate(
       appbar: HomeAppBar(
         text: "Expenses App", 

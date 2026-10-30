@@ -32,4 +32,7 @@ class Expenses {
       amount: amount ?? this.amount,
     );
   }
+
+  @override
+  String toString() => 'Expenses(id: $id, item: $item, amount: $amount)';
 }

@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../model/expenses.dart';
+import 'package:flutter/foundation.dart';
 
 class DatabaseHelper {
   DatabaseHelper._();
@@ -49,7 +50,7 @@ class DatabaseHelper {
   */ 
   Future<List<Expenses>> getExpenses() async{
     final expensesDb = await database;
-    final rows = await expensesDb.query('expenses', orderBy: 'id DESC');
+    final rows = await expensesDb.query('expenses', orderBy: 'id ASC');
     return rows.map(Expenses.fromMap).toList();
   }
 
@@ -73,4 +74,11 @@ class DatabaseHelper {
     final expensesDb = await database;
     return expensesDb.delete('expenses', where: 'id = ?', whereArgs: [expense.id]);
   }
+
+  Future<void> printAllRows() async {
+    if (!kDebugMode) return;
+    final db = await database;
+    // ignore: avoid_print
+    print(await db.query('expenses'));
+  }  
 }
