@@ -49,7 +49,7 @@ class _ExpensesAppState extends State<ExpensesApp> {
         colorSchemeSeed: Colors.teal,
         brightness: Brightness.dark, 
       ),
-      
+      themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: Homepage(isDarkMode: _isDarkMode, onThemeChanged: _setDarkMode,),
     );
   }

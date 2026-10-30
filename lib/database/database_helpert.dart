@@ -1,5 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import '../model/expenses.dart';
 
 class DatabaseHelper {
   DatabaseHelper._();
@@ -38,42 +39,38 @@ class DatabaseHelper {
     Insert in the expenses table with 
     a key value pair of item and amount 
   */
-  Future<int> insertExpense(String item, double amount) async{
+  Future<int> insertExpense(Expenses expenses) async{
     final expenseDb = await database;
-    return expenseDb.insert('expenses', {
-      'item': item,
-      'amount': amount
-    });
+    return expenseDb.insert('expenses', expenses.toMap());
   }
 
   /*  
     Get the list of Expenses starting from the newest
   */ 
-  Future<List<Map<String, dynamic>>> getExpenses() async{
+  Future<List<Expenses>> getExpenses() async{
     final expensesDb = await database;
-    return expensesDb.query('expenses', orderBy: 'id DESC');
+    final rows = await expensesDb.query('expenses', orderBy: 'id DESC');
+    return rows.map(Expenses.fromMap).toList();
   }
 
   /*  
     Update the specific Expenses record
   */
-  Future<int> updateExpenses(int id, String item, double amount) async{
+  Future<int> updateExpenses(Expenses expense) async{
     final expensesDb = await database;
-    return expensesDb.update('expenses',
-      {
-        'item': item,
-        'amount': amount
-      },
+    return expensesDb.update(
+      'expenses',
+      expense.toMap(),
       where: 'id = ?',
-      whereArgs: [id]
+      whereArgs: [expense.id]
     );
   }
 
   /*  
     Delete a row from expenses table or a record
   */
-  Future<int> deleteExpenses(int id) async{
+  Future<int> deleteExpenses(Expenses expense) async{
     final expensesDb = await database;
-    return expensesDb.delete('expenses', where: 'id = ?', whereArgs: [id]);
+    return expensesDb.delete('expenses', where: 'id = ?', whereArgs: [expense.id]);
   }
 }
