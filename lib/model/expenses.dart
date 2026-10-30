@@ -21,7 +21,7 @@ class Expenses {
     return Expenses(
       id: map['id'] as int?,
       item: map['item'] as String, 
-      amount: map['amount'] as double,
+      amount: (map['amount'] as num).toDouble(),
     );
   }
 
